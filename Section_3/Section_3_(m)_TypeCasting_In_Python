@@ -1,0 +1,74 @@
+# ==== TYPE CASTING IN PYTHON ====
+
+# ---------- Basic Type Casting ----------
+x = 5
+print(float(x))       # int → float: 5.0
+
+y = 3.9
+print(int(y))         # float → int: 3
+
+s1 = "10"
+print(int(s1))        # str → int: 10
+
+s2 = "3.14"
+print(float(s2))      # str → float: 3.14
+
+n = 42
+print(str(n))         # int → str: "42"
+
+f = 2.718
+print(str(f))         # float → str: "2.718"
+
+# ---------- Bool Type Casting ----------
+print(bool(0))        # False
+print(bool(""))       # False
+print(bool(None))     # False
+print(bool([]))       # False
+print(bool(123))      # True
+print(bool("abc"))    # True
+
+# ---------- List / Tuple / Set / Dict Casting ----------
+print(list("abc"))                  # str → list: ['a', 'b', 'c']
+print(tuple([1, 2, 3]))             # list → tuple: (1, 2, 3)
+print(set((1, 2, 2, 3)))            # tuple → set: {1, 2, 3}
+print(dict([("a", 1), ("b", 2)]))   # list of tuples → dict: {'a': 1, 'b': 2}
+
+d = {'x': 10, 'y': 20}
+print(list(d))           # dict → list of keys: ['x', 'y']
+print(list(d.values()))  # dict → list of values: [10, 20]
+
+# ---------- Invalid Casts (Raise Errors) ----------
+# int("hello")        # ValueError
+# float("abc")        # ValueError
+# int([1, 2, 3])      # TypeError
+# list(10)            # TypeError
+
+# ---------- Custom Type Casting with Special Methods ----------
+class MyNumber:
+    def __init__(self, value):
+        self.value = value
+
+    def __int__(self):
+        return int(float(self.value))
+
+    def __float__(self):
+        return float(self.value)
+
+obj = MyNumber("42.7")
+print(int(obj))     # 42
+print(float(obj))   # 42.7
+
+# ---------- Using eval() (Be Cautious!) ----------
+print(eval("42"))           # 42 (int)
+print(eval("[1, 2, 3]"))     # [1, 2, 3] (list)
+# print(eval("__import__('os').system('rm -rf /')"))  # ⚠️Dangerous
+
+# ---------- Safe Type Casting with Try-Except ----------
+def safe_int(s):
+    try:
+        return int(s)
+    except (ValueError, TypeError):
+        return 0
+
+print(safe_int("abc"))  # 0
+print(safe_int("100"))  # 100
