@@ -1,1 +1,0 @@
-# Comperison Opertaors In Python
